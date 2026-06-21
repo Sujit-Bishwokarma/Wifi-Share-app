@@ -1,0 +1,50 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Outer Sharing Radar Ring 3 -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M 28,40 A 32,32 0 0,1 80,40" />
+
+    <!-- Sharing Radar Ring 2 -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M 38,50 A 20,20 0 0,1 70,50" />
+
+    <!-- Sharing Radar Ring 1 -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M 46,59 A 10,10 0 0,1 62,59" />
+
+    <!-- Center Hub Node -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 54,64 A 4,4 0 1,1 53.99,64" />
+
+    <!-- Device Base / Bridge lines representing routing -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.0"
+        android:strokeLineCap="round"
+        android:pathData="M 39,78 L 69,78" />
+        
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.0"
+        android:strokeLineCap="round"
+        android:pathData="M 46,84 L 62,84" />
+</vector>

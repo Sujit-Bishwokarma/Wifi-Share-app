@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wifi Share Pro</string>
+    <string name="start_sharing">Start Sharing</string>
+    <string name="stop_sharing">Stop Sharing</string>
+    <string name="hotspot_inactive">Hotspot: Inactive</string>
+    <string name="hotspot_active">Hotspot: Active</string>
+    <string name="vpn_inactive">VPN Router: Inactive</string>
+    <string name="vpn_active">VPN Router: Active</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "Wifi Share Pro",
+  "description": "A no-root Wi-Fi tethering repeater utilizing a user-space VpnService and low-level TCP/IP translation stack to share internet cleanly without proxy detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
