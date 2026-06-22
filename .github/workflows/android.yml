@@ -16,24 +16,26 @@ jobs:
     - name: Checkout the Repository
       uses: actions/checkout@v4
 
-    - name: Set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
-        cache: gradle
 
-    - name: Grant Execute Permission to gradlew
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: "9.3.1"
+
+    - name: Decode Debug Keystore
       run: |
-        if [ -f "./gradlew" ]; then
-          chmod +x gradlew
+        if [ -f "debug.keystore.base64" ]; then
+          base64 -d debug.keystore.base64 > debug.keystore
         fi
 
     - name: Build with Gradle
       run: |
-        if [ -f "./gradlew" ]; then
-          ./gradlew assembleDebug
-        fi
+        gradle assembleDebug
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
