@@ -7,31 +7,32 @@ var isSystemDark: Boolean = false
 
 // Sleek pure blue-accented color palette with high accessibility contrast
 val SleekPrimary: Color
-    get() = if (isSystemDark) Color(0xFF5C93FF) else Color(0xFF0044FF) // Vibrant Pure Sapphire Blue
+    get() = if (isSystemDark) Color(0xFF60A5FA) else Color(0xFF2F54EB) // Gorgeous Cobalt/Electric Blue matching the image
 
 val SleekBackground: Color
-    get() = if (isSystemDark) Color(0xFF0F1221) else Color(0xFFFDFBF7) // Rich Warm Cream White (Light) / Luxurious Deep Midnight Sapphire (Dark)
+    get() = if (isSystemDark) Color(0xFF0F172A) else Color(0xFFFAF8F5) // Gorgeous Warm White/Cream background
 
 val SleekTextDark: Color
-    get() = if (isSystemDark) Color(0xFFF1F5F9) else Color(0xFF0D0E12) // Near Solid off-white for crisp reading in dark mode
+    get() = if (isSystemDark) Color(0xFFF8FAFC) else Color(0xFF1E293B) // Dark slate for sharp reading
 
 val SleekTextSecondary: Color
-    get() = if (isSystemDark) Color(0xFF94A3B8) else Color(0xFF374151) // Highly legible mid-tone text (Slate Blue in Dark Mode)
+    get() = if (isSystemDark) Color(0xFF94A3B8) else Color(0xFF64748B) // Sleek secondary text
 
 val SleekHeroBg: Color
-    get() = if (isSystemDark) Color(0xFF191D34) else Color(0xFFF5EFE2) // Slightly elevated night card for perfect elements
+    get() = if (isSystemDark) Color(0xFF1E293B) else Color(0xFFFFFFFF) // Pure sparkling white surface card matching the image
 
 val SleekInnerCircle: Color
-    get() = if (isSystemDark) Color(0xFF141930) else Color(0xFFE5EEFF) // Accent ring container
+    get() = if (isSystemDark) Color(0xFF1E1B4B) else Color(0xFFEFF6FF) // Cobalt light blue accent container
 
 val SleekIconDark: Color
-    get() = if (isSystemDark) Color(0xFF60A5FA) else Color(0xFF0044FF) // Icon foreground
+    get() = if (isSystemDark) Color(0xFF60A5FA) else Color(0xFF2F54EB) // Icon foreground
 
 val SleekBorder: Color
-    get() = if (isSystemDark) Color(0xFF2B3356) else Color(0xFFE6DEC9) // Elegant sophisticated borders
+    get() = if (isSystemDark) Color(0xFF334155) else Color(0xFFEFEAE2) // Beautiful warm-matching subtle border lines
 
 val SleekActivePill: Color
-    get() = if (isSystemDark) Color(0xFF26305C) else Color(0xFFEBE3CF) // Soft premium pill indicator background
+    get() = if (isSystemDark) Color(0xFF2F54EB).copy(alpha = 0.2f) else Color(0xFFDBEAFE) // Soft blue highlight container
+
 
 val SleekDarkBg: Color
     get() = Color(0xFF0A0D1A)

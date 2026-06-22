@@ -27,6 +27,17 @@ class LocalVpnService : VpnService() {
         private val _logs = MutableStateFlow<List<String>>(emptyList())
         val logs = _logs.asStateFlow()
 
+        private val _totalBytesRouted = MutableStateFlow(0L)
+        val totalBytesRouted = _totalBytesRouted.asStateFlow()
+
+        fun incrementBytesRouted(bytes: Long) {
+            _totalBytesRouted.value += bytes
+        }
+
+        fun resetBytesRouted() {
+            _totalBytesRouted.value = 0L
+        }
+
         fun addLog(msg: String) {
             val currentList = _logs.value.toMutableList()
             if (currentList.size > 200) {
@@ -64,13 +75,14 @@ class LocalVpnService : VpnService() {
             addLog("VPN already running.")
             return
         }
+        resetBytesRouted()
 
         addLog("Establishing VPN Interception Tunnel...")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             startForeground(
                 NOTIFICATION_ID,
                 buildNotification(),
-                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED
             )
         } else {
             startForeground(NOTIFICATION_ID, buildNotification())
@@ -84,6 +96,13 @@ class LocalVpnService : VpnService() {
                 .addDnsServer("8.8.8.8")
                 .addDnsServer("1.1.1.1")
                 .setMtu(1500)
+
+            try {
+                builder.addDisallowedApplication(this.packageName)
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to exclude own package from VPN", e)
+                addLog("Warning: Could not exclude app's own package from routing.")
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 builder.setMetered(false)

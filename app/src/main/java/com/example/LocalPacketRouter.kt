@@ -58,7 +58,7 @@ class LocalPacketRouter(
 
     fun start() {
         isRunning = true
-        log("Packet Translation Layer started.")
+        log("Packet Translation Layer started.", showInUi = true)
         
         // 1. Thread to read from VPN TUN tun0 interface
         executor.submit { runTunReaderLoop() }
@@ -90,12 +90,14 @@ class LocalPacketRouter(
         udpSessions.clear()
 
         executor.shutdownNow()
-        log("Packet Translation Layer stopped.")
+        log("Packet Translation Layer stopped.", showInUi = true)
     }
 
-    private fun log(message: String) {
+    private fun log(message: String, showInUi: Boolean = false) {
         Log.i(TAG, message)
-        logCallback(message)
+        if (showInUi) {
+            logCallback(message)
+        }
     }
 
     private fun runTunReaderLoop() {
@@ -107,6 +109,7 @@ class LocalPacketRouter(
                 packetBuffer.clear()
                 val bytesRead = inputStream.read(packetBuffer.array())
                 if (bytesRead > 0) {
+                    LocalVpnService.incrementBytesRouted(bytesRead.toLong())
                     packetBuffer.limit(bytesRead)
                     
                     // Create a copy for async handling so we don't block the TUN read
@@ -194,7 +197,7 @@ class LocalPacketRouter(
                 // Increment sequence number since SYN counts as 1 byte
                 newSession.mySequenceNum++
             } catch (e: Exception) {
-                log("Failed to open connection to $destIp:$destPort: ${e.message}")
+                log("Failed to open connection to $destIp:$destPort: ${e.message}", showInUi = true)
                 sendTcpEmptyAckOrRst(packet, Packet.TCP_FLAG_RST)
             }
             return
@@ -345,7 +348,7 @@ class LocalPacketRouter(
                 log("TCP connected beautifully to real remote: ${session.destIp}:${session.destPort}")
             }
         } catch (e: IOException) {
-            log("TCP Connection handshake failed: ${session.destIp}:${session.destPort} error: ${e.message}")
+            log("TCP Connection handshake failed: ${session.destIp}:${session.destPort} error: ${e.message}", showInUi = true)
             sendTcpControlPacket(session, Packet.TCP_FLAG_RST)
             closeTcpSession(session)
         }
@@ -413,7 +416,9 @@ class LocalPacketRouter(
     @Synchronized
     private fun writeToTun(buf: ByteBuffer) {
         try {
-            tunWriter.write(buf.array(), 0, buf.limit())
+            val limit = buf.limit()
+            tunWriter.write(buf.array(), 0, limit)
+            LocalVpnService.incrementBytesRouted(limit.toLong())
         } catch (e: IOException) {
             Log.e(TAG, "Error writing back to VPN tun", e)
         }
